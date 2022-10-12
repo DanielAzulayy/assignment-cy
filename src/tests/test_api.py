@@ -7,6 +7,11 @@ def test_get_words_route_default(test_app):
     assert response.json() == {}
 
 
+def test_empty_words(test_app):
+    response = test_app.post("/api/v1/words", json={"value": ""})
+    assert response.status_code == 400
+
+
 def test_add_words_route(test_app):
     response = test_app.post(
         "/api/v1/words",

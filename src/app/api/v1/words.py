@@ -22,8 +22,8 @@ async def get_words():
 @router.post("/api/v1/words")
 async def add_words(words: Words):
     try:
-        if words.value is None:
-            return Response("Words should be given.", status_code=500)
+        if words.value is None or len(words.value) == 0:
+            return Response("Words should be given.", status_code=400)
         if parsed_words := parse_words(words.value):
             words_service.count_words(parsed_words)
         return Response("Words added. 'ACK'", status_code=200)
