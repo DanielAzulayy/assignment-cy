@@ -1,0 +1,13 @@
+services:
+  api:
+    build: ./src
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCKER_WORKER_CPUS:-0}"
+          memory: "${DOCKER_WORKER_MEMORY:-0}"
+    volumes:
+      - ./src/:/usr/src/app/
+    ports:
+      - 8002:8000
